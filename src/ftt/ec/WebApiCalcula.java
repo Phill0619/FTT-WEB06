@@ -1,6 +1,8 @@
 package ftt.ec;
 
 import java.io.IOException;
+import java.math.BigInteger;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,22 +46,28 @@ public class WebApiCalcula extends HttpServlet {
 		//TODO: Implementar soma com big integer
 		
 		System.out.println("Passei no GET!");
-		 
-		int a = Integer.valueOf(request.getParameter("a"));
-		int b = Integer.valueOf(request.getParameter("b"));
 		
+		
+		/*	LONG
+		long a = Integer.valueOf(request.getParameter("a"));
+		long b = Integer.valueOf(request.getParameter("b"));
 		// TODO Auto-generated method stub
 		response.getWriter().append(String.valueOf(a+b));
+		*/
+		
+		/*	BIG INTEGER
+		BigInteger a = new BigInteger(request.getParameter("a"));
+		BigInteger b = new BigInteger(request.getParameter("b"));		
+		// TODO Auto-generated method stub
+		response.getWriter().append((b.add(a)).toString());
+		*/
 	
-		/* SOMA INT
-		System.out.println("Passei no GET!");
-		
+		/* SOMA INT		
 		int a = Integer.valueOf(request.getParameter("a"));
-		int b = Integer.valueOf(request.getParameter("b"));
-		
+		int b = Integer.valueOf(request.getParameter("b"));		
 		// TODO Auto-generated method stub
 		response.getWriter().append(String.valueOf(a+b));
-	*/
+		*/
 	}
 
 	/**
