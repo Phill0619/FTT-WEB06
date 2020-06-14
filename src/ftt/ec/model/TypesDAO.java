@@ -95,7 +95,7 @@ public class TypesDAO implements Dao<Types> {
             if (rs.next()) {
                 t.setId(rs.getInt("ID"));
                 t.setName(rs.getString("NAME"));
-                t.setBiggest_weakness(rs.getString("BIIGEST_WEAKNESS"));
+                t.setBiggest_weakness(rs.getString("BIGGEST_WEAKNESS"));
                 t.setBiggest_advantage(rs.getString("BIGGEST_ADVANTAGE"));
             }
         } catch (SQLException e) {

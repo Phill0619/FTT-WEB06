@@ -58,7 +58,7 @@ public class MovesApi extends HttpServlet {
 		// a conversão é feita na classe Moves(seters)		
 		m.setId(request.getParameter("ID"));
         m.setName(request.getParameter("NAME"));
-        m.setPower(request.getParameter("NUMBER"));
+        m.setPower(request.getParameter("POWER"));
         m.setAccuracy(request.getParameter("ACCURACY"));
         m.setType(request.getParameter("TYPE"));		 
          

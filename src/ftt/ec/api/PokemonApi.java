@@ -1,14 +1,7 @@
 package ftt.ec.api;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Date;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import ftt.ec.beans.Pokemon;
+import ftt.ec.model.PokemonDAO;
 
 /**
  * Servlet implementation class PokemonApi
@@ -53,36 +49,65 @@ public class PokemonApi extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		System.out.println("Pokemon get - " + new Date());
+
+		// TODO Auto-generated method stub
+		Pokemon p = new Pokemon();
+				
+		// Note que getParamtere retorna string, 
+		// a conversão é feita na classe Pokemon(seters)		
+		p.setId(request.getParameter("ID"));
+		p.setName(request.getParameter("NAME"));
+		p.setNumber(request.getParameter("NUMBER"));
+		p.setType(request.getParameter("TYPE"));
+		         
+		PokemonDAO pokemonDAO = new PokemonDAO();		
+		pokemonDAO.insert(p);
+
+		//TODO: Gerenciar e propagar erro...
+				
+		//System.out.println(request.getContentLength());		
+		if (request.getContentLength() < 1) {
+			response.getWriter().append("{\"count\":" + pokemonDAO.count() + "}");
+		} else {
+			response.getWriter().append("Pokemon created...");
+		} //if
+	} //doGet	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("Client post - " + new Date());
 		doGet(request, response);
-	}
-
+	}//doPost
+	
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	}
+		System.out.println("Moves put - " + new Date());
+	}//doPut
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-String id = request.getParameter("id");
 		
-		if(id != null) {
-			//this.userData.remove(id);
-			response.getWriter().append("Deletado");           
-		} else 
-			response.getWriter().append("Informe um id");
-	}
-
+		System.out.println("Pokemon delete - " + new Date());		
+		Pokemon p = new Pokemon();		
+		p.setId(request.getParameter("ID"));//getParamtere retorna string, conversão é feita na classe Pokemon (seters)	
+		System.out.println("Delete: " + p.getId());
+				
+		PokemonDAO pokemonDAO = new PokemonDAO();		
+        pokemonDAO.delete(p);
+				
+		//TODO: Implementar processamento de erro apropriado...
+		response.getWriter().append("Pokemon deleted...");		
+	} //doDelete
 }
