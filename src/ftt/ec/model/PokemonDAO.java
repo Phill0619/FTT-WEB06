@@ -176,7 +176,7 @@ public class PokemonDAO implements Dao<Pokemon> {
 		try {
 			
             PreparedStatement preparedStatement = connection.
-                    prepareStatement("SELECT MAX(ID) MAX_ID FROM POKEMON");
+                    prepareStatement("SELECT MAX(ID) MAX_ID FROM FTT.POKEMON");
             
             ResultSet rs = preparedStatement.executeQuery();
 
