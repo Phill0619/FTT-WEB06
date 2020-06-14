@@ -47,7 +47,7 @@ public class ListApi extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		
-		// Ler arquivo no init()
+		//Ler arquivo no init()
 		//Criar arrayList no init() e carregar dados do arquivo
 		
 		this.userData = new HashMap<String, String>(); //ID, Name
