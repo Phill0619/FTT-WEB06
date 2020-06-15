@@ -62,7 +62,40 @@ public class MovesApi extends HttpServlet {
         m.setAccuracy(request.getParameter("ACCURACY"));
         m.setType(request.getParameter("TYPE"));		 
          
-		MovesDAO movesDAO = new MovesDAO();		
+		MovesDAO movesDAO = new MovesDAO();
+		movesDAO.find(m);
+		//movesDAO.insert(m);
+
+        //TODO: Gerenciar e propagar erro...
+		
+		//System.out.println(request.getContentLength());		
+		if (request.getContentLength() < 1) {
+			response.getWriter().append("{\"count\":" + movesDAO.count() + "}");
+		} else {
+			response.getWriter().append("Move selected...");//*******************
+		} //if
+	} //doGet SELECT E FIND
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		System.out.println("Moves post - " + new Date());
+		//doGet(request, response);
+		Moves m = new Moves();
+		
+		// Note que getParamtere retorna string, 
+		// a conversão é feita na classe Moves(seters)		
+		m.setId(request.getParameter("ID"));
+        m.setName(request.getParameter("NAME"));
+        m.setPower(request.getParameter("POWER"));
+        m.setAccuracy(request.getParameter("ACCURACY"));
+        m.setType(request.getParameter("TYPE"));		 
+         
+		MovesDAO movesDAO = new MovesDAO();
+		//movesDAO.find(m);
 		movesDAO.insert(m);
 
         //TODO: Gerenciar e propagar erro...
@@ -73,17 +106,7 @@ public class MovesApi extends HttpServlet {
 		} else {
 			response.getWriter().append("Move created...");
 		} //if
-	} //doGet	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		System.out.println("Client post - " + new Date());
-		doGet(request, response);
-	}//doPost
+	}//doPost INSERT
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
@@ -91,8 +114,31 @@ public class MovesApi extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		Moves m = new Moves();
+		
+		// Note que getParamtere retorna string, 
+		// a conversão é feita na classe Moves(seters)		
+		m.setId(request.getParameter("ID"));
+        m.setName(request.getParameter("NAME"));
+        m.setPower(request.getParameter("POWER"));
+        m.setAccuracy(request.getParameter("ACCURACY"));
+        m.setType(request.getParameter("TYPE"));		 
+        
+		MovesDAO movesDAO = new MovesDAO();
+		movesDAO.update(m);
+		//movesDAO.find(m);
+		//movesDAO.insert(m);
+
+        //TODO: Gerenciar e propagar erro...
+		
+		//System.out.println(request.getContentLength());		
+		if (request.getContentLength() < 1) {
+			response.getWriter().append("{\"count\":" + movesDAO.count() + "}");
+		} else {
+			response.getWriter().append("Move updated...");
+		} //if
 		System.out.println("Moves put - " + new Date());
-	}//doPut
+	}//doPut UPDATE
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)

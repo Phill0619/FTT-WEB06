@@ -64,7 +64,40 @@ public class PokemonApi extends HttpServlet {
 		p.setType(request.getParameter("TYPE"));
 		         
 		PokemonDAO pokemonDAO = new PokemonDAO();		
+		//pokemonDAO.insert(p);
+		//pokemonDAO.update(p);
+		pokemonDAO.find(p);
+
+		//TODO: Gerenciar e propagar erro...
+				
+		//System.out.println(request.getContentLength());		
+		if (request.getContentLength() < 1) {
+			response.getWriter().append("{\"count\":" + pokemonDAO.count() + "}");
+		} else {
+			response.getWriter().append("Pokemon selected...");//********************
+		} //if
+	} //doGet SELECT E FIND
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("Pokemon post - " + new Date());
+		//doGet(request, response);
+		Pokemon p = new Pokemon();
+		
+		// Note que getParamtere retorna string, 
+		// a conversão é feita na classe Pokemon(seters)		
+		p.setId(request.getParameter("ID"));
+		p.setName(request.getParameter("NAME"));
+		p.setNumber(request.getParameter("NUMBER"));
+		p.setType(request.getParameter("TYPE"));
+		         
+		PokemonDAO pokemonDAO = new PokemonDAO();		
 		pokemonDAO.insert(p);
+		//pokemonDAO.update(p);
+		//pokemonDAO.find(p);
 
 		//TODO: Gerenciar e propagar erro...
 				
@@ -74,24 +107,38 @@ public class PokemonApi extends HttpServlet {
 		} else {
 			response.getWriter().append("Pokemon created...");
 		} //if
-	} //doGet	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("Client post - " + new Date());
-		doGet(request, response);
-	}//doPost
+	}//doPost INSERT
 	
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Moves put - " + new Date());
-	}//doPut
+		System.out.println("Pokemon put - " + new Date());
+		
+		Pokemon p = new Pokemon();
+		
+		// Note que getParamtere retorna string, 
+		// a conversão é feita na classe Pokemon(seters)		
+		p.setId(request.getParameter("ID"));
+		p.setName(request.getParameter("NAME"));
+		p.setNumber(request.getParameter("NUMBER"));
+		p.setType(request.getParameter("TYPE"));
+		         
+		PokemonDAO pokemonDAO = new PokemonDAO();		
+		pokemonDAO.update(p);
+		//pokemonDAO.insert(p);
+		//pokemonDAO.find(p);
+
+		//TODO: Gerenciar e propagar erro...
+				
+		//System.out.println(request.getContentLength());		
+		if (request.getContentLength() < 1) {
+			response.getWriter().append("{\"count\":" + pokemonDAO.count() + "}");
+		} else {
+			response.getWriter().append("Pokemon updated...");
+		} //if
+	}//doPut UPDATE
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)

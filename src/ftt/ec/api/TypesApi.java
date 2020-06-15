@@ -50,12 +50,42 @@ public class TypesApi extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 				
 		System.out.println("Types get - " + new Date());
+		
+		Types t = new Types();
+		
+		// Note que getParamtere retorna string, 
+		// a conversão é feita na classe Pokemon(seters)		
+		t.setId(request.getParameter("ID"));
+		t.setName(request.getParameter("NAME"));
+		t.setBiggest_weakness(request.getParameter("BIGGEST_WEAKNESS"));
+		t.setBiggest_advantage(request.getParameter("BIGGEST_ADVANTAGE"));
+		
+		TypesDAO typesDAO = new TypesDAO();		
+		typesDAO.find(t);	
+		//typesDAO.insert(t);
 
+		//TODO: Gerenciar e propagar erro...
+						
+		//System.out.println(request.getContentLength());		
+		if (request.getContentLength() < 1) {
+			response.getWriter().append("{\"count\":" + typesDAO.count() + "}");
+		} else {
+			response.getWriter().append("Type selected...");//***********************
+		} //if		
+	} //doGet SELECT E FIND
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("Types post - " + new Date());
+		//doGet(request, response);
+
 		Types t = new Types();
 						
 		// Note que getParamtere retorna string, 
-		// a conversão é feita na classe Pokemon(seters)		
+		// a conversão é feita na classe Types (seters)		
 		t.setId(request.getParameter("ID"));
 		t.setName(request.getParameter("NAME"));
 		t.setBiggest_weakness(request.getParameter("BIGGEST_WEAKNESS"));
@@ -70,26 +100,38 @@ public class TypesApi extends HttpServlet {
 		if (request.getContentLength() < 1) {
 			response.getWriter().append("{\"count\":" + typesDAO.count() + "}");
 		} else {
-			response.getWriter().append("Pokemon created...");
-		} //if
-	} //doGet
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("Client post - " + new Date());
-		doGet(request, response);
-	}//doPost
+			response.getWriter().append("Type created...");
+		} //if		
+	}//doPost INSERT
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Moves put - " + new Date());
-	}//doPut
+		System.out.println("Types put - " + new Date());
+		
+		Types t = new Types();
+		
+		// Note que getParamtere retorna string, 
+		// a conversão é feita na classe Types (seters)		
+		t.setId(request.getParameter("ID"));
+		t.setName(request.getParameter("NAME"));
+		t.setBiggest_weakness(request.getParameter("BIGGEST_WEAKNESS"));
+		t.setBiggest_advantage(request.getParameter("BIGGEST_ADVANTAGE"));
+        
+		TypesDAO typesDAO = new TypesDAO();		
+		typesDAO.update(t);
+
+		//TODO: Gerenciar e propagar erro...
+						
+		//System.out.println(request.getContentLength());		
+		if (request.getContentLength() < 1) {
+			response.getWriter().append("{\"count\":" + typesDAO.count() + "}");
+		} else {
+			response.getWriter().append("Type updated...");
+		} //if		
+	}//doPut UPDATE
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
@@ -97,7 +139,7 @@ public class TypesApi extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("Pokemon delete - " + new Date());		
+		System.out.println("Types delete - " + new Date());		
 		Types t = new Types();		
 		t.setId(request.getParameter("ID"));//getParamtere retorna string, conversão é feita na classe Pokemon (seters)	
 		System.out.println("Delete: " + t.getId());
